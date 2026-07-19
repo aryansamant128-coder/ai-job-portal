@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import AdminLayout from "../../Admin/AdminLayout";
-=======
-
-import AdminLayout from "../../components/admin/AdminLayout";
->>>>>>> ec4c99f0041b580768c50f2f843e2572ccc10c79
 import {
   getAdminProfile,
   updateAdminProfile,
   adminLogout,
-<<<<<<< HEAD
 } from "../../../services/admin/adminAuthService";
-=======
-} from "../../services/admin/adminSettingsService";
->>>>>>> ec4c99f0041b580768c50f2f843e2572ccc10c79
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -33,7 +24,6 @@ const Settings = () => {
   const loadProfile = async () => {
     try {
       const data = await getAdminProfile();
-
       setForm({
         full_name: data.full_name || "",
         email: data.email || "",
@@ -54,14 +44,12 @@ const Settings = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     try {
       await updateAdminProfile({
         full_name: form.full_name,
         phone: form.phone,
         location: form.location,
       });
-
       alert("Profile Updated Successfully");
     } catch (error) {
       alert(error.message);
@@ -69,21 +57,19 @@ const Settings = () => {
   };
 
   const handleLogout = async () => {
-    await adminLogout();
-<<<<<<< HEAD
-=======
-
->>>>>>> ec4c99f0041b580768c50f2f843e2572ccc10c79
-    navigate("/admin/login");
+    try {
+      await adminLogout();
+    } catch (error) {
+      console.log("Logout failed:", error);
+    } finally {
+      navigate("/admin/login");
+    }
   };
 
   return (
     <AdminLayout>
-<<<<<<< HEAD
       <div className="max-w-3xl mx-auto py-10">
-
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-
           {/* Header */}
           <div className="bg-blue-600 text-white p-6">
             <h1 className="text-3xl font-bold">Admin Settings</h1>
@@ -94,7 +80,6 @@ const Settings = () => {
 
           {/* Body */}
           <div className="p-8">
-
             <div className="flex justify-center mb-8">
               <div className="w-24 h-24 rounded-full bg-blue-600 text-white flex items-center justify-center text-4xl font-bold">
                 {form.full_name
@@ -104,12 +89,10 @@ const Settings = () => {
             </div>
 
             <form onSubmit={handleUpdate}>
-
               <div className="mb-5">
                 <label className="block mb-2 font-semibold">
                   Full Name
                 </label>
-
                 <input
                   type="text"
                   name="full_name"
@@ -123,12 +106,11 @@ const Settings = () => {
                 <label className="block mb-2 font-semibold">
                   Email
                 </label>
-
                 <input
                   type="email"
                   value={form.email}
                   disabled
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-gray-100"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 bg-gray-100 cursor-not-allowed"
                 />
               </div>
 
@@ -136,7 +118,6 @@ const Settings = () => {
                 <label className="block mb-2 font-semibold">
                   Phone
                 </label>
-
                 <input
                   type="text"
                   name="phone"
@@ -151,7 +132,6 @@ const Settings = () => {
                 <label className="block mb-2 font-semibold">
                   Location
                 </label>
-
                 <input
                   type="text"
                   name="location"
@@ -168,7 +148,6 @@ const Settings = () => {
               >
                 Update Profile
               </button>
-
             </form>
 
             <hr className="my-8" />
@@ -179,60 +158,9 @@ const Settings = () => {
             >
               Logout
             </button>
-
           </div>
         </div>
-
       </div>
-=======
-
-      <h1>Admin Settings</h1>
-
-      <form onSubmit={handleUpdate}>
-
-        <input
-          type="text"
-          name="full_name"
-          placeholder="Full Name"
-          value={form.full_name}
-          onChange={handleChange}
-        />
-
-        <input
-          type="email"
-          value={form.email}
-          disabled
-        />
-
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone"
-          value={form.phone}
-          onChange={handleChange}
-        />
-
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={form.location}
-          onChange={handleChange}
-        />
-
-        <button type="submit">
-          Update Profile
-        </button>
-
-      </form>
-
-      <br />
-
-      <button onClick={handleLogout}>
-        Logout
-      </button>
-
->>>>>>> ec4c99f0041b580768c50f2f843e2572ccc10c79
     </AdminLayout>
   );
 };
